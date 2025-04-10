@@ -23,7 +23,7 @@ A React.js application that allows users to search for cars based on various fil
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/rishiraj2603/carFinder.git
    cd car-finder-app
    ```
 
