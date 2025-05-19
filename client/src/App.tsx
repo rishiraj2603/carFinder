@@ -34,7 +34,6 @@ function AppContent() {
     year: 'All',
     search: ''
   });
-  
   const wishlist = useAppSelector(state => state.wishlist.items);
   const dispatch = useAppDispatch();
   
@@ -50,6 +49,7 @@ function AppContent() {
       try {
         const data = await getCars();
         setCars(data);
+        console.log("🚀 ~ fetchCars ~ data:", data)
       } catch (err) {
         setError('Failed to fetch cars. Please try again later.');
       } finally {
@@ -67,7 +67,7 @@ function AppContent() {
     // Apply filters
     if (filters.brand) {
       result = result.filter(car => 
-        car.make.toLowerCase().includes(filters.brand.toLowerCase())
+        car.model.toLowerCase().includes(filters.brand.toLowerCase())
       );
     }
 
@@ -80,12 +80,6 @@ function AppContent() {
     if (filters.maxPrice) {
       result = result.filter(car => 
         car.price <= Number(filters.maxPrice)
-      );
-    }
-
-    if (filters.fuelType !== 'All') {
-      result = result.filter(car => 
-        car.fuelType === filters.fuelType
       );
     }
 
@@ -145,17 +139,17 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
+    <div className="min-h-screen transition-colors duration-200 bg-gray-100 dark:bg-gray-900">
       <Header title="Car Finder" />
 
-      <main className="max-w-7xl mx-auto py-6 px-4">
-        <div className="flex justify-between items-center mb-6">
+      <main className="px-4 py-6 mx-auto max-w-7xl">
+        <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-4">
             <SearchFilters filters={filters} onFilterChange={handleFilterChange} />
             <select
               value={sortOrder}
               onChange={(e) => handleSortChange(e.target.value as SortOrder)}
-              className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transform transition-all duration-300 hover:scale-105"
+              className="px-4 py-2 transition-all duration-300 transform bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white hover:scale-105"
             >
               <option value="none">Sort by</option>
               <option value="price-asc">Price: Low to High</option>
@@ -168,9 +162,9 @@ function AppContent() {
             <ThemeToggle />
             <button
               onClick={() => setIsWishlistOpen(true)}
-              className="flex items-center space-x-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-lg shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 transform hover:scale-105"
+              className="flex items-center px-4 py-2 space-x-2 transition-all duration-300 transform bg-white rounded-lg shadow dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-105"
             >
-              <HeartIcon className="h-5 w-5 text-red-500" />
+              <HeartIcon className="w-5 h-5 text-red-500" />
               <span className="dark:text-white">Wishlist ({wishlist.length})</span>
             </button>
           </div>
@@ -181,7 +175,7 @@ function AppContent() {
         {error && <ErrorMessage message={error} />}
 
         {!loading && !error && filteredCars.length > 0 && (
-          <div className="transform transition-all duration-500 ease-in-out">
+          <div className="transition-all duration-500 ease-in-out transform">
             <CarGrid 
               cars={currentCars} 
               wishlist={wishlist} 
@@ -219,4 +213,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

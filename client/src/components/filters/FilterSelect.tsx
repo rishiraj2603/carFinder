@@ -17,7 +17,7 @@ const FilterSelect: React.FC<FilterSelectProps> = ({
 }) => {
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+      <label htmlFor={id} className="block mb-1 text-sm font-medium text-gray-700">
         {label}
       </label>
       <select
