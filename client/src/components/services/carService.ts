@@ -24,7 +24,7 @@ export interface CarFilters {
   limit?: number;
 }
 
-const BASE_URL = 'https://private-anon-cbac7150b9-carsapi1.apiary-mock.com/cars';
+const BASE_URL = './api';
 
 export const getCars = async (): Promise<Car[]> => {
   try {
